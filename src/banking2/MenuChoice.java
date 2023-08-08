@@ -1,5 +1,5 @@
-package banking1;
+package banking2;
 
-public interface MenuSelectException {
+public interface MenuChoice {
 	int MAKE=1, DEPOSIT=2, WITHDRAW=3, INQUIRE=4, EXIT=5;
 }

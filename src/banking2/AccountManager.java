@@ -1,15 +1,17 @@
-package banking1;
+package banking2;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import banking2.Account;
-import banking2.AccountManager;
-import banking2.MenuChoice;
+public class AccountManager {
+	
+public static Account[] accArray = new Account[50];
+static int numofAccounts = 0;
+	
+public AccountManager(int num) {
+	accArray = new Account[num];
+	numofAccounts = 0;
+}
 
-public class BankingSystemMain {
-
-	//메뉴출력
 	public static void showMenu() {
 		System.out.println("------Menu------");
 		System.out.println("===================================================");
@@ -20,60 +22,90 @@ public class BankingSystemMain {
 		System.out.println("5. 프로그램종료 ");
 		System.out.println("===================================================");
 		System.out.print("선택: ");
-		}
-	
-	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
 		
-		while(true) {
-			showMenu();
-			int choice = scan.nextInt();
-			switch(choice) {
-			case MenuChoice.MAKE:
-				makeAccount(choice);
-				break;
-			case MenuChoice.DEPOSIT:
-				depoitMoney();
-				break;
-			case MenuChoice.WITHDRAW:
-				withdrawMoney();
-				break;
-			case MenuChoice.INQUIRE:
-				showAccInfo();
-				break;
-			case MenuChoice.EXIT:
-				System.out.println("프로그램종료");
-				return;
-			}
-		}
 	}
 
-
-
-	public static Account[] accArray = new Account[50];
-	AccountManager amanager = new AccountManager(50);
-	
 	//계좌 생성
-	public static void makeAccount(int choice) {
-//		String accountNumber, name, balance;
+	public static void makeAccount() {
+		//String accountNumber, name, balance;
 		Scanner scan = new Scanner(System.in);
 		System.out.println("===============");
 		System.out.println("***신규계좌개설***");
 		System.out.println("===============");
-		System.out.print("계좌번호: ");
+		System.out.print("1.보통계좌 ");
+		System.out.println("2.신용신뢰계좌");
+		System.out.println("선택:");
+		int choice = scan.nextInt();
+		
+		System.out.println("계좌번호: ");
 		String accountNumber = scan.nextLine();
-		System.out.print("고객이름: ");
-		String name = scan.nextLine();
+		//버퍼
+		scan.nextInt();
 
-		System.out.print("잔고: ");
+		System.out.println("고객이름: ");
+		String name = scan.nextLine();
+		scan.nextLine();
+
+		System.out.println("잔고: ");
 		int balance = scan.nextInt();
-		for (int i = 0; i < accArray.length; i++) {
-			if (accArray[i] == null) {
-				accArray[i] = new Account(accountNumber, name, balance);
-				System.out.println("계좌개설이 완료되었습니다.");
-				break;
-			}
-		}
+		
+		System.out.println("기본이자: ");
+		int inter = scan.nextInt();
+		
+		Account acc = null;
+		
+		switch(choice) {
+	      case 1:
+			acc = new NormalAccount(accountNumber,name,balance,inter);
+	          break;
+
+	      case 2:
+	         System.out.println("신용등급(A,B,C등급):");String highcredit = scan.nextLine(); 
+	         acc = new HighCreditAccount(accountNumber,name,balance,inter,highcredit);
+	         break;
+	      }
+		
+		accArray[numofAccounts++]=acc;
+		System.out.println("계좌개설이 완료되었습니다.");
+		
+//		if(choice==1) {
+//			System.out.println("계좌번호: ");
+//			String accountNumber = scan.nextLine();
+//
+//			System.out.print("고객이름: ");
+//			String name = scan.nextLine();
+//
+//			System.out.print("잔고: ");
+//			int balance = scan.nextInt();
+//			
+//			System.out.println("기본이자: ");
+//			int inter = scan.nextInt();
+//			
+//			NormalAccount normal = new NormalAccount(accountNumber, name, balance, inter);
+//			accArray[numofAccounts++]= normal;
+//			
+//		}
+//		else if(choice==2) {
+//			System.out.println("계좌번호: ");
+//			String accountNumber = scan.nextLine();
+//
+//			System.out.print("고객이름: ");
+//			String name = scan.nextLine();
+//
+//			System.out.print("잔고: ");
+//			int balance = scan.nextInt();
+//			
+//			System.out.println(": ");
+//			int inter = scan.nextInt();
+//		}
+		
+//		for (int i = 0; i < accArray.length; i++) {
+//			if (accArray[i] == null) {
+//				accArray[i] = new Account(accountNumber, name, balance);
+//				System.out.println("계좌개설이 완료되었습니다.");
+//				break;
+//			}
+//		}
 //		System.out.println("***신규계좌개설***");
 //		System.out.print("계좌번호: ");accountNumber = scan.nextLine();
 //		System.out.print("고객이름: ");name = scan.nextLine();
@@ -83,13 +115,12 @@ public class BankingSystemMain {
 	//입금
 	public static void depoitMoney() {
 		Scanner scan = new Scanner(System.in);
-		String accountNumber, name;
 		
 		System.out.println("");
 		System.out.println("***입 금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요.");
-		System.out.print("계좌번호: ");accountNumber = scan.nextLine();
-		System.out.print("입금액: ");int money = scan.nextInt();
+		System.out.print("계좌번호: ");String accountNumber = scan.nextLine();
+		System.out.print("입금액: ");int money = scan.nextInt();scan.nextLine();
 		for (int i=0; i<accArray.length; i++) {
 			while (accArray[i] != null) {
 				if (accArray[i].getAccountNumber().equals(accountNumber)) {
@@ -110,6 +141,7 @@ public class BankingSystemMain {
 		System.out.println("***출 금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요.");
 		System.out.print("계좌번호: ");accountNumber = scan.nextLine();
+		scan.nextInt();
 		System.out.print("출금액: ");int money = scan.nextInt();
 		for (int i=0; i<accArray.length; i++) {
 			while (accArray[i] != null) {
@@ -124,9 +156,6 @@ public class BankingSystemMain {
 
 	//계좌 조회
 	public static void showAccInfo() {
-		Scanner scan = new Scanner(System.in);
-		String accountNumber, name, balance;
-		
 		System.out.println("");
 		System.out.println("***계좌정보출력***");
 		//System.out.println("계좌번호:"+accountNumber);
@@ -139,11 +168,12 @@ public class BankingSystemMain {
 			if (accArray[i] == null) {
 				break;
 			}
-			System.out.println("계좌번호: "+accArray[i].getAccountNumber());
-			System.out.println("고객이름: "+accArray[i].getName());
+			System.out.print("계좌번호: "+accArray[i].getAccountNumber()+", ");
+			System.out.print("고객이름: "+accArray[i].getName()+", ");
 			System.out.println("잔고: "+accArray[i].getBalance());
 			//System.out.println(
 			//		accountArray[i].getAccountNumber() + "\t" + accountArray[i].getName() + "\t" + accountArray[i].getBalance());
 		}
 	}
 }
+
