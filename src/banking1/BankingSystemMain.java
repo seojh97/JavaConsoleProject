@@ -16,7 +16,7 @@ public class BankingSystemMain {
 		System.out.println("5. 프로그램종료 ");
 		System.out.println("===================================================");
 		System.out.print("선택: ");
-	}
+		}
 	
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
