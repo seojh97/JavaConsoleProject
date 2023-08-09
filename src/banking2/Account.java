@@ -72,14 +72,14 @@ public class Account {
 	}
 	
 	//입금처리
-	public boolean plusAccmoney(int money) {
+	public void plusAccmoney(int money) {
 		balance += money;
-		return true;
 	}
 	
 	//출금처리
-	public void minusAccmoney(int money) {
+	public boolean minusAccmoney(int money) {
 		balance -= money;
+		return true;
 	}
 	
 	

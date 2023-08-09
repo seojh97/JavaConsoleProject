@@ -55,15 +55,15 @@ public AccountManager(int num) {
 		Account acc = null;
 		
 		switch(choice) {
-	      case 1:
+		case 1:
 			acc = new NormalAccount(accountNumber,name,balance,inter);
-	          break;
+			break;
 
-	      case 2:
-	         System.out.println("신용등급(A,B,C등급):");String highcredit = scan.nextLine(); 
-	         acc = new HighCreditAccount(accountNumber,name,balance,inter,highcredit);
-	         break;
-	      }
+		case 2:
+			System.out.println("신용등급(A,B,C등급):");String highcredit = scan.nextLine(); 
+			acc = new HighCreditAccount(accountNumber,name,balance,inter,highcredit);
+			break;
+		}
 		
 		accArray[numofAccounts++]=acc;
 		System.out.println("계좌개설이 완료되었습니다.");
@@ -119,15 +119,18 @@ public AccountManager(int num) {
 		System.out.println("");
 		System.out.println("***입 금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요.");
-		System.out.print("계좌번호: ");String accountNumber = scan.nextLine();
-		System.out.print("입금액: ");int money = scan.nextInt();scan.nextLine();
-		for (int i=0; i<accArray.length; i++) {
-			while (accArray[i] != null) {
+		System.out.print("계좌번호: ");
+		String accountNumber = scan.nextLine();
+		System.out.print("입금액: ");
+		int money = scan.nextInt();
+		scan.nextLine();
+		for (int i=0; i<numofAccounts; i++) {
+//			while (accArray[i] != null) {
 				if (accArray[i].getAccountNumber().equals(accountNumber)) {
 					accArray[i].plusAccmoney(money);
 					break;
 				}
-			}
+//			}
 		}
 		System.out.println("입금이 완료되었습니다.");
 	}
@@ -140,16 +143,18 @@ public AccountManager(int num) {
 		System.out.println("");
 		System.out.println("***출 금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요.");
-		System.out.print("계좌번호: ");accountNumber = scan.nextLine();
-		scan.nextInt();
-		System.out.print("출금액: ");int money = scan.nextInt();
-		for (int i=0; i<accArray.length; i++) {
-			while (accArray[i] != null) {
+		System.out.print("계좌번호: ");
+		accountNumber = scan.nextLine();
+//		scan.nextInt();
+		System.out.print("출금액: ");
+		int money = scan.nextInt();
+		for (int i=0; i<numofAccounts; i++) {
+//			while (accArray[i] != null) {
 				if (accArray[i].getAccountNumber().equals(accountNumber)) {
 					accArray[i].minusAccmoney(money);
 					break;
 				}
-			}
+//			}
 		}
 		System.out.println("출금이 완료되었습니다.");
 	}

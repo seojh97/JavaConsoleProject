@@ -1,7 +1,5 @@
 package banking2;
 
-import java.util.Scanner;
-
 public class NormalAccount extends Account{
 	double inter;
 	
@@ -25,9 +23,9 @@ public class NormalAccount extends Account{
 		System.out.println("기본이자: "+ (inter*100)+"%");
 	}
 	@Override
-	public boolean plusAccmoney(int money) {
+	public void plusAccmoney(int money) {
 		super.balance=(int)(super.balance+(super.balance*inter)+money);
-		return true;
+//		return true;
 	}
 	public static void main(String[] args) {
 		
