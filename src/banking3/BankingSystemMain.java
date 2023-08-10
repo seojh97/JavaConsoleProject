@@ -36,7 +36,7 @@ public class BankingSystemMain {
 				amanager.withdrawMoney();
 				break;
 			case MenuChoice.INQUIRE:
-				amanager.showAccInfo();
+				amanager.accountInfo();
 				break;
 			case MenuChoice.EXIT:
 				System.out.println("프로그램종료");

@@ -45,9 +45,9 @@ public class Account {
 	}
 	
    public void accountInfo() {
-	   System.out.println("계좌번호 >"+accountNumber);
-	   System.out.println("고객이름 >"+name);
-	   System.out.println("잔고 >"+balance);
+	   System.out.println("계좌번호: "+accountNumber);
+	   System.out.println("고객이름: "+name);
+	   System.out.println("잔고: "+balance);
 
 	   }
 	
@@ -72,8 +72,9 @@ public class Account {
 	}
 	
 	//입금처리
-	public void plusAccmoney(int money) {
+	public boolean plusAccmoney(int money) {
 		balance += money;
+		return true;
 	}
 	
 	//출금처리

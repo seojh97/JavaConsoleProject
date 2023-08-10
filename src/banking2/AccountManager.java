@@ -34,23 +34,24 @@ public AccountManager(int num) {
 		System.out.println("===============");
 		System.out.print("1.보통계좌 ");
 		System.out.println("2.신용신뢰계좌");
-		System.out.println("선택:");
+		System.out.print("선택:");
 		int choice = scan.nextInt();
-		
-		System.out.println("계좌번호: ");
-		String accountNumber = scan.nextLine();
-		//버퍼
-		scan.nextInt();
-
-		System.out.println("고객이름: ");
-		String name = scan.nextLine();
 		scan.nextLine();
-
-		System.out.println("잔고: ");
-		int balance = scan.nextInt();
 		
-		System.out.println("기본이자: ");
+		System.out.print("계좌번호: ");
+		String accountNumber = scan.nextLine();
+
+		System.out.print("고객이름: ");
+		String name = scan.nextLine();
+		
+		//nextInt() 다음 nextLine()을 사용
+		System.out.print("잔고: ");
+		int balance = scan.nextInt();
+		scan.nextLine();
+		
+		System.out.print("기본이자: ");
 		int inter = scan.nextInt();
+		scan.nextLine();
 		
 		Account acc = null;
 		
@@ -60,7 +61,8 @@ public AccountManager(int num) {
 			break;
 
 		case 2:
-			System.out.println("신용등급(A,B,C등급):");String highcredit = scan.nextLine(); 
+			System.out.print("신용등급(A,B,C등급):");
+			String highcredit = scan.nextLine(); 
 			acc = new HighCreditAccount(accountNumber,name,balance,inter,highcredit);
 			break;
 		}
@@ -116,7 +118,6 @@ public AccountManager(int num) {
 	public static void depoitMoney() {
 		Scanner scan = new Scanner(System.in);
 		
-		System.out.println("");
 		System.out.println("***입 금***");
 		System.out.println("계좌번호와 입금할 금액을 입력하세요.");
 		System.out.print("계좌번호: ");
@@ -128,26 +129,29 @@ public AccountManager(int num) {
 //			while (accArray[i] != null) {
 				if (accArray[i].getAccountNumber().equals(accountNumber)) {
 					accArray[i].plusAccmoney(money);
+					System.out.println("입금이 완료되었습니다.");
 					break;
 				}
 //			} 
 		}
-		System.out.println("입금이 완료되었습니다.");
+		
 	}
 
 	//출금
 	public static void withdrawMoney() {
 		Scanner scan = new Scanner(System.in);
-		String accountNumber, name;
+	
 		
 		System.out.println("");
 		System.out.println("***출 금***");
 		System.out.println("계좌번호와 출금할 금액을 입력하세요.");
 		System.out.print("계좌번호: ");
-		accountNumber = scan.nextLine();
+		String accountNumber = scan.nextLine();
 //		scan.nextInt();
 		System.out.print("출금액: ");
 		int money = scan.nextInt();
+		scan.nextLine();
+		
 		for (int i=0; i<numofAccounts; i++) {
 //			while (accArray[i] != null) {
 				if (accArray[i].getAccountNumber().equals(accountNumber)) {
@@ -160,25 +164,16 @@ public AccountManager(int num) {
 	}
 
 	//계좌 조회
-	public static void showAccInfo() {
-		System.out.println("");
+	public static void accountInfo() {
 		System.out.println("***계좌정보출력***");
-		//System.out.println("계좌번호:"+accountNumber);
-		//System.out.println("고객이름:"+name);
-		System.out.println("===============");
-//		for(Account ac : accounts) {
-//			ac.showAccInfo();
-//		}
-		for (int i = 0; i < accArray.length; i++) {
-			if (accArray[i] == null) {
-				break;
+		System.out.println("==============="); 
+		for (int i = 0; i < numofAccounts; i++) {
+			accArray[i].accountInfo();
 			}
-			System.out.print("계좌번호: "+accArray[i].getAccountNumber()+", ");
-			System.out.print("고객이름: "+accArray[i].getName()+", ");
-			System.out.println("잔고: "+accArray[i].getBalance());
+		System.out.println("----------------------");
+	    System.out.println("전체계좌정보 출력이 완료되었습니다.");
 			//System.out.println(
 			//		accountArray[i].getAccountNumber() + "\t" + accountArray[i].getName() + "\t" + accountArray[i].getBalance());
 		}
 	}
-}
 

@@ -22,12 +22,11 @@ public class NormalAccount extends Account{
 		super.accountInfo();
 		System.out.println("기본이자: "+ (inter*100)+"%");
 	}
+	
 	@Override
-	public void plusAccmoney(int money) {
+	public boolean plusAccmoney(int money) {
 		super.balance=(int)(super.balance+(super.balance*inter)+money);
-//		return true;
+		return true;
 	}
-	public static void main(String[] args) {
-		
-	}
+
 }
