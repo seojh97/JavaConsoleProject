@@ -1,4 +1,4 @@
-package banking3;
+package banking4;
 
 public class NormalAccount extends Account{
 	double inter;

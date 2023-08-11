@@ -1,32 +1,36 @@
-package banking3;
+package banking4;
 
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 public class AccountManager{
 	
-public static Account[] accArray = new Account[50];
-static int numofAccounts = 0;
+//public static Account[] accArray = new Account[50];
+//static int numofAccounts = 0;
+	Set<Account> accountSet = new HashSet<Account>();
 	
-public AccountManager(int num) {
-	accArray = new Account[num];
-	numofAccounts = 0;
-}
-	public static void showMenu() 
+//public AccountManager(int num) {
+//	accArray = new Account[num];
+//	numofAccounts = 0;
+//}
+	public void showMenu() 
 	{
 		System.out.println("------Menu------");
-		System.out.println("===================================================");
+		System.out.println("================================================================");
 		System.out.print("1. 계좌개설 ");
 		System.out.print("2. 입 금 ");
 		System.out.print("3. 출 금 ");
 		System.out.print("4. 계좌정보출력 ");
-		System.out.println("5. 프로그램종료 ");
-		System.out.println("===================================================");
-		System.out.print("선택: ");	
+		System.out.print("5. 계좌정보삭제 ");
+		System.out.println("6. 프로그램종료 ");
+		System.out.println("================================================================");
+		System.out.print("선택: ");
 	}
 
 	//계좌 생성
-	public static void makeAccount() {
+	public void makeAccount() {
 		//String accountNumber, name, balance;
 		Scanner scan = new Scanner(System.in);
 		System.out.println("===============");
@@ -67,13 +71,15 @@ public AccountManager(int num) {
 			break;
 		}
 		
-		accArray[numofAccounts++]=acc;
+		
+		accountSet.add(acc);
+//		accArray[numofAccounts++]=acc;
 		System.out.println("계좌개설이 완료되었습니다.");
 		
 	}
 	
 	//입금
-	public static void depoitMoney() {
+	public void depoitMoney() {
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("");
@@ -101,13 +107,13 @@ public AccountManager(int num) {
 			System.out.println("500원 단위로 입력해주세요.");
 		}
 		else {
-			for (int i=0; i<numofAccounts; i++) {
-				if (accArray[i].getAccountNumber().equals(accountNumber)) {
-					accArray[i].plusAccmoney(money);
+			for(Account ac : accountSet) {
+				if (ac.getAccountNumber().equals(accountNumber)) {
+					ac.plusAccmoney(money);
 					System.out.println("입금이 완료되었습니다.");	
 					return;
 				}
-		}
+			}
 			System.out.println("존재하지 않는 계좌번호 입니다.");
 
 			}
@@ -115,9 +121,8 @@ public AccountManager(int num) {
 		
 
 	//출금
-	public static void withdrawMoney() {
+	public void withdrawMoney() {
 		Scanner scan = new Scanner(System.in);
-	
 		
 		System.out.println("");
 		System.out.println("***출 금***");
@@ -148,16 +153,16 @@ public AccountManager(int num) {
 		
 		boolean showAccInfo = false;
 		
-        for (int i = 0; i < numofAccounts; i++) {
-            if (accArray[i].getAccountNumber().equals(accountNumber)) {
+        for (Account ac : accountSet) {
+            if (ac.getAccountNumber().equals(accountNumber)) {
             	showAccInfo = true;
 
-				if (accArray[i].getBalance() < money) {
+				if (ac.getBalance() < money) {
 		            System.out.println("잔고가 부족합니다. 금액 전체를 출금할까요? (Y/N)");
 		            String yesOrno = scan.nextLine();
-		
 		            if (yesOrno.equalsIgnoreCase("Y")) {
-		            	accArray[i].minusAccmoney(accArray[i].getBalance());
+		            	ac.minusAccmoney(ac.getBalance());
+		            	ac.setBalance(0);
 		                System.out.println("금액 전체 출금 처리 완료");
 		            }
 		            else if (yesOrno.equalsIgnoreCase("N")) {
@@ -168,26 +173,30 @@ public AccountManager(int num) {
 		            }
 		        }
 				else {
-					accArray[i].minusAccmoney(money);
+					ac.minusAccmoney(money);
 		            System.out.println("출금이 완료되었습니다.");
 		        }
 		        break;
 		    }
 		}
-//		scan.nextInt();
 	}
 
 	//계좌 조회
-	public static void accountInfo() {
+	public void accountInfo() {
 		System.out.println("***계좌정보출력***");
 		System.out.println("===============");
-		for (int i = 0; i < numofAccounts; i++) {
-			accArray[i].accountInfo();
+		for (Account ac : accountSet) {
+			ac.accountInfo();
 			}
-		System.out.println("----------------------");
+		System.out.println("===============");
 	    System.out.println("전체계좌정보 출력이 완료되었습니다.");
 			//System.out.println(
 			//		accountArray[i].getAccountNumber() + "\t" + accountArray[i].getName() + "\t" + accountArray[i].getBalance());
-		}
 	}
+	
+	//계좌 정보 삭제
+	public void accDelete() {
+		
+	}
+}
 
